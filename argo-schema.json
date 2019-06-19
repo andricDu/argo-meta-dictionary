@@ -1,0 +1,234 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ARGO File Meta Schema",
+    "definitions": {
+        "field": {
+            "type": "object",
+            "required": [
+                "name",
+                "description",
+                "valueType"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "valueType": {
+                    "type": "string",
+                    "enum": [
+                        "string",
+                        "integer",
+                        "number",
+                        "boolean"
+                    ]
+                },
+                "restrictions": {
+                    "type": "object",
+                    "properties": {
+                        "required": {
+                            "type": "object",
+                            "required": [
+                                "default"
+                            ],
+                            "properties": {
+                                "default": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "codeList": {
+                            "type": "array",
+                            "minItems": 1,
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "regExp": {
+                            "type": "string"
+                        },
+                        "script": {
+                            "type": "string"
+                        },
+                        "foreignKey": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "if": {
+                "properties": {
+                    "valueType": {
+                        "const": "string"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "restrictions": {
+                        "type": "object",
+                        "properties": {
+                            "required": {
+                                "type": "object",
+                                "required": [
+                                    "default"
+                                ],
+                                "properties": {
+                                    "default": {
+                                        "type": "object",
+                                        "required": [
+                                            "value"
+                                        ],
+                                        "properties": {
+                                            "value": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "else": {
+                "if": {
+                    "properties": {
+                        "valueType": {
+                            "const": "integer"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "restrictions": {
+                            "type": "object",
+                            "properties": {
+                                "required": {
+                                    "type": "object",
+                                    "required": [
+                                        "default"
+                                    ],
+                                    "properties": {
+                                        "default": {
+                                            "type": "object",
+                                            "required": [
+                                                "value"
+                                            ],
+                                            "properties": {
+                                                "value": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "else": {
+                    "if": {
+                        "properties": {
+                            "valueType": {
+                                "const": "number"
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "restrictions": {
+                                "type": "object",
+                                "properties": {
+                                    "required": {
+                                        "type": "object",
+                                        "required": [
+                                            "default"
+                                        ],
+                                        "properties": {
+                                            "default": {
+                                                "type": "object",
+                                                "required": [
+                                                    "value"
+                                                ],
+                                                "properties": {
+                                                    "value": {
+                                                        "type": "number"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "else": {
+                        "if": {
+                            "properties": {
+                                "valueType": {
+                                    "const": "boolean"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "restrictions": {
+                                    "type": "object",
+                                    "properties": {
+                                        "required": {
+                                            "type": "object",
+                                            "required": [
+                                                "default"
+                                            ],
+                                            "properties": {
+                                                "default": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "value"
+                                                    ],
+                                                    "properties": {
+                                                        "value": {
+                                                            "type": "boolean"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "name",
+        "description",
+        "fields"
+    ],
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "array",
+            "minItems": 3,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/field"
+            }
+        }
+    },
+    "additionalProperties": false
+}
