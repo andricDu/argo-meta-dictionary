@@ -7,6 +7,7 @@
             "valueType": "string",
             "description": "Unique identifier for donor; assigned by data provider",
             "restrictions": {
+                "unique": true,
                 "required": {
                     "default": {
                         "value": "missing"

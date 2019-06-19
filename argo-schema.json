@@ -55,6 +55,9 @@
                         },
                         "foreignKey": {
                             "type": "string"
+                        },
+                        "unique": {
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
