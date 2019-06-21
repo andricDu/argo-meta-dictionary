@@ -6,19 +6,20 @@
             "name": "donor_submitter_id",
             "valueType": "string",
             "description": "Unique identifier for donor; assigned by data provider",
+            "index": 0,
             "restrictions": {
                 "unique": true,
                 "required": {
-                    "default": {
-                        "value": "missing"
-                    }
-                }
+                    "default": "MISSING"
+                },
+                "script":  "field.length > 5"
             }
         },
         {
             "name": "gender",
             "valueType": "string",
             "description": "Donor Biological Sex",
+            "index": 1,
             "restrictions": {
                 "codeList": [
                     "Male",
@@ -31,17 +32,17 @@
             "name": "ethnicity",
             "valueType": "string",
             "description": "Self described",
+            "index": 2,
             "restrictions": {}
         },
         {
             "name": "vital_status",
             "valueType": "string",
             "description": "Donor's last known vital status",
+            "index": 3,
             "restrictions": {
                 "required": {
-                    "default": {
-                        "value": "Other"
-                    }
+                    "default": "Other"
                 },
                 "codeList": [
                     "Alive",
@@ -52,6 +53,7 @@
         },
         {
             "name": "cause_of_death",
+            "index": 4,
             "valueType": "string",
             "description": "Cause of Donor Death",
             "restrictions": {}
