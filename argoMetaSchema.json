@@ -2,21 +2,35 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "ARGO File Meta Schema",
     "definitions": {
-        "stringRestrictions": {
+        "stringMeta": {
             "type": "object",
             "properties": {
+                "key": {
+                    "type": "boolean",
+                    "enum": [
+                        true
+                    ]
+                },
+                "default": {
+                    "type": "string"
+                },
                 "required": {
                     "type": "object",
-                    "required": [
-                        "default"
-                    ],
+                    "required": ["default"],
                     "properties": {
                         "default": {
                             "type": "string"
                         }
                     },
                     "additionalProperties": false
-                },
+                }
+            },
+            "maxProperties": 1,
+            "additionalProperties": false
+        },
+        "stringRestrictions": {
+            "type": "object",
+            "properties": {
                 "codeList": {
                     "type": "array",
                     "minItems": 2,
@@ -30,7 +44,10 @@
                 },
                 "foreignKey": {
                     "type": "object",
-                    "required": ["entityName", "fieldName"],
+                    "required": [
+                        "entityName",
+                        "fieldName"
+                    ],
                     "properties": {
                         "entityName": {
                             "type": "string"
@@ -47,63 +64,87 @@
             },
             "additionalProperties": false
         },
-        "integerRestrictions": {
+        "integerMeta": {
             "type": "object",
             "properties": {
+                "default": {
+                    "type": "integer"
+                },
                 "required": {
                     "type": "object",
-                    "required": [
-                        "default"
-                    ],
+                    "required": ["default"],
                     "properties": {
                         "default": {
                             "type": "integer"
                         }
                     },
                     "additionalProperties": false
-                },
+                }
+            },
+            "maxProperties": 1,
+            "additionalProperties": false
+        },
+        "integerRestrictions": {
+            "type": "object",
+            "properties": {
                 "script": {
                     "type": "string"
                 }
             },
             "additionalProperties": false
         },
-        "numberRestrictions": {
+        "numberMeta": {
             "type": "object",
             "properties": {
+                "default": {
+                    "type": "number"
+                },
                 "required": {
                     "type": "object",
-                    "required": [
-                        "default"
-                    ],
+                    "required": ["default"],
                     "properties": {
                         "default": {
                             "type": "number"
                         }
                     },
                     "additionalProperties": false
-                },
+                }
+            },
+            "maxProperties": 1,
+            "additionalProperties": false
+        },
+        "numberRestrictions": {
+            "type": "object",
+            "properties": {
                 "script": {
                     "type": "string"
                 }
             },
             "additionalProperties": false
         },
-        "booleanRestrictions": {
+        "booleanMeta": {
             "type": "object",
             "properties": {
+                "default": {
+                    "type": "boolean"
+                },
                 "required": {
                     "type": "object",
-                    "required": [
-                        "default"
-                    ],
+                    "required": ["default"],
                     "properties": {
                         "default": {
                             "type": "boolean"
                         }
                     },
                     "additionalProperties": false
-                },
+                }
+            },
+            "maxProperties": 1,
+            "additionalProperties": false
+        },
+        "booleanRestrictions": {
+            "type": "object",
+            "properties": {
                 "script": {
                     "type": "string"
                 }
@@ -133,8 +174,8 @@
                         "boolean"
                     ]
                 },
-                "default": {
-                    "type": ["string", "integer", "number", "boolean"]
+                "meta": {
+                    "$ref": "#/definitions/stringMeta"
                 },
                 "restrictions": {
                     "anyOf": [
@@ -153,37 +194,57 @@
                     ]
                 }
             },
-            "oneOf" : [
+            "oneOf": [
                 {
                     "properties": {
-                        "valueType": {"const": "string"},
-                        "restrictions": {"$ref": "#/definitions/stringRestrictions"}
+                        "valueType": {
+                            "const": "string"
+                        },
+                        "restrictions": {
+                            "$ref": "#/definitions/stringRestrictions"
+                        }
                     }
                 }
             ],
             "anyOf": [
                 {
                     "properties": {
-                        "valueType": {"const": "string"},
-                        "restrictions": {"$ref": "#/definitions/stringRestrictions"}
+                        "valueType": {
+                            "const": "string"
+                        },
+                        "restrictions": {
+                            "$ref": "#/definitions/stringRestrictions"
+                        }
                     }
                 },
                 {
                     "properties": {
-                        "valueType": {"const": "integer"},
-                        "restrictions": {"$ref": "#/definitions/integerRestrictions"}
+                        "valueType": {
+                            "const": "integer"
+                        },
+                        "restrictions": {
+                            "$ref": "#/definitions/integerRestrictions"
+                        }
                     }
                 },
                 {
                     "properties": {
-                        "valueType": {"const": "number"},
-                        "restrictions": {"$ref": "#/definitions/numberRestrictions"}
+                        "valueType": {
+                            "const": "number"
+                        },
+                        "restrictions": {
+                            "$ref": "#/definitions/numberRestrictions"
+                        }
                     }
                 },
                 {
                     "properties": {
-                        "valueType": {"const": "boolean"},
-                        "restrictions": {"$ref": "#/definitions/booleanRestrictions"}
+                        "valueType": {
+                            "const": "boolean"
+                        },
+                        "restrictions": {
+                            "$ref": "#/definitions/booleanRestrictions"
+                        }
                     }
                 }
             ],
