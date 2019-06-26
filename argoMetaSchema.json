@@ -115,7 +115,6 @@
             "required": [
                 "name",
                 "description",
-              	"index",
                 "valueType"
             ],
             "properties": {
@@ -125,9 +124,6 @@
                 "description": {
                     "type": "string"
                 },
-                "index": {
-                  "type": "integer"
-                },
                 "valueType": {
                     "type": "string",
                     "enum": [
@@ -136,6 +132,9 @@
                         "number",
                         "boolean"
                     ]
+                },
+                "default": {
+                    "type": ["string", "integer", "number", "boolean"]
                 },
                 "restrictions": {
                     "anyOf": [
@@ -154,6 +153,14 @@
                     ]
                 }
             },
+            "oneOf" : [
+                {
+                    "properties": {
+                        "valueType": {"const": "string"},
+                        "restrictions": {"$ref": "#/definitions/stringRestrictions"}
+                    }
+                }
+            ],
             "anyOf": [
                 {
                     "properties": {
@@ -186,6 +193,7 @@
     "required": [
         "name",
         "description",
+        "key",
         "fields"
     ],
     "properties": {
@@ -193,6 +201,9 @@
             "type": "string"
         },
         "description": {
+            "type": "string"
+        },
+        "key": {
             "type": "string"
         },
         "fields": {
